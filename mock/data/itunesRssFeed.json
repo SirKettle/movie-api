@@ -1,0 +1,279 @@
+{
+  "feed": {
+    "title": "Top Seasons",
+    "id": "https://rss.itunes.apple.com/api/v1/us/tv-shows/top-tv-seasons/10/explicit.json?at=1001lybQ",
+    "author": {
+      "name": "iTunes Store",
+      "uri": "http://wwww.apple.com/us/itunes/"
+    },
+    "links": [
+      {
+        "self": "https://rss.itunes.apple.com/api/v1/us/tv-shows/top-tv-seasons/10/explicit.json?at=1001lybQ"
+      },
+      {
+        "alternate": "https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewTop?genreId=32&popId=12&app=itunes"
+      }
+    ],
+    "copyright": "Copyright © 2017 Apple Inc. All Rights Reserved.",
+    "country": "us",
+    "icon": "http://itunes.apple.com/favicon.ico",
+    "updated": "2017-08-11T02:28:33.000-07:00",
+    "results": [
+      {
+        "artistId": "741096884",
+        "artistName": "Rick and Morty",
+        "artistUrl": "https://itunes.apple.com/us/artist/rick-and-morty/id741096884?at=1001lybQ",
+        "artworkUrl100": "http://is1.mzstatic.com/image/thumb/Music117/v4/5b/5f/b5/5b5fb50e-cb6e-dfa3-d3df-2020f241b2b8/source/200x200bb.png",
+        "copyright": "TM & © 2017 Turner Broadcasting System, Inc. A Time Warner Company. All Rights Reserved.",
+        "genres": [
+          {
+            "genreId": "4000",
+            "name": "Comedy",
+            "url": "https://itunes.apple.com/us/genre/id4000"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          },
+          {
+            "genreId": "4002",
+            "name": "Animation",
+            "url": "https://itunes.apple.com/us/genre/id4002"
+          }
+        ],
+        "id": "1245275367",
+        "kind": "tvSeason",
+        "name": "Rick and Morty, Season 3 (Uncensored)",
+        "releaseDate": "2017-07-30",
+        "url": "https://itunes.apple.com/us/tv-season/rick-and-morty-season-3-uncensored/id1245275367?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "1249545480",
+        "artistName": "Descendants 2",
+        "artistUrl": "https://itunes.apple.com/us/artist/descendants-2/id1249545480?at=1001lybQ",
+        "artworkUrl100": "http://is2.mzstatic.com/image/thumb/Music127/v4/5c/86/d5/5c86d550-c8ef-863d-ef0d-c310f72edd54/source/200x200bb.png",
+        "copyright": "© Disney",
+        "genres": [
+          {
+            "genreId": "4005",
+            "name": "Kids",
+            "url": "https://itunes.apple.com/us/genre/id4005"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          }
+        ],
+        "id": "1249545481",
+        "kind": "tvSeason",
+        "name": "Descendants 2",
+        "releaseDate": "2017-07-03",
+        "url": "https://itunes.apple.com/us/tv-season/descendants-2/id1249545481?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "1254203485",
+        "artistName": "The Sinner",
+        "artistUrl": "https://itunes.apple.com/us/artist/the-sinner/id1254203485?at=1001lybQ",
+        "artworkUrl100": "http://is5.mzstatic.com/image/thumb/Music117/v4/03/43/4d/03434d7d-be83-aeb6-053e-12c56eba6717/source/200x200bb.png",
+        "copyright": "© 2017 Universal Cable Productions LLC. All Rights Reserved.",
+        "genres": [
+          {
+            "genreId": "4001",
+            "name": "Drama",
+            "url": "https://itunes.apple.com/us/genre/id4001"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          }
+        ],
+        "id": "1254203486",
+        "kind": "tvSeason",
+        "name": "The Sinner, Season 1",
+        "releaseDate": "2017-08-02",
+        "url": "https://itunes.apple.com/us/tv-season/the-sinner-season-1/id1254203486?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "1261397717",
+        "artistName": "Life of Kylie",
+        "artistUrl": "https://itunes.apple.com/us/artist/life-of-kylie/id1261397717?at=1001lybQ",
+        "artworkUrl100": "http://is3.mzstatic.com/image/thumb/Music128/v4/90/b9/6e/90b96e92-fe50-baeb-4332-907cd107993b/source/200x200bb.png",
+        "copyright": "© 2017 E! Entertainment LLC. All Rights Reserved.",
+        "genres": [
+          {
+            "genreId": "4007",
+            "name": "Reality TV",
+            "url": "https://itunes.apple.com/us/genre/id4007"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          }
+        ],
+        "id": "1261397718",
+        "kind": "tvSeason",
+        "name": "Life of Kylie, Season 1",
+        "releaseDate": "2017-08-06",
+        "url": "https://itunes.apple.com/us/tv-season/life-of-kylie-season-1/id1261397718?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "439826352",
+        "artistName": "Suits",
+        "artistUrl": "https://itunes.apple.com/us/artist/suits/id439826352?at=1001lybQ",
+        "artworkUrl100": "http://is1.mzstatic.com/image/thumb/Music117/v4/68/dd/36/68dd36ae-b0ed-caf0-2214-4c45bfebdef2/source/200x200bb.png",
+        "copyright": "© 2017 Universal Television, LLC. All Rights Reserved.",
+        "genres": [
+          {
+            "genreId": "4001",
+            "name": "Drama",
+            "url": "https://itunes.apple.com/us/genre/id4001"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          }
+        ],
+        "id": "1249126068",
+        "kind": "tvSeason",
+        "name": "Suits, Season 7",
+        "releaseDate": "2017-07-12",
+        "url": "https://itunes.apple.com/us/tv-season/suits-season-7/id1249126068?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "1009546373",
+        "artistName": "Descendants",
+        "artistUrl": "https://itunes.apple.com/us/artist/descendants/id1009546373?at=1001lybQ",
+        "artworkUrl100": "http://is3.mzstatic.com/image/thumb/Music3/v4/5b/43/76/5b4376bd-c611-103f-414d-ae73d019bfd4/source/200x200bb.png",
+        "copyright": "© Disney",
+        "genres": [
+          {
+            "genreId": "4005",
+            "name": "Kids",
+            "url": "https://itunes.apple.com/us/genre/id4005"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          }
+        ],
+        "id": "1009546374",
+        "kind": "tvSeason",
+        "name": "Descendants",
+        "releaseDate": "2015-07-06",
+        "url": "https://itunes.apple.com/us/tv-season/descendants/id1009546374?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "1222181718",
+        "artistName": "The Handmaid's Tale",
+        "artistUrl": "https://itunes.apple.com/us/artist/the-handmaids-tale/id1222181718?at=1001lybQ",
+        "artworkUrl100": "http://is3.mzstatic.com/image/thumb/Music127/v4/37/89/74/37897422-4ccf-4129-610b-3844a609babc/source/200x200bb.png",
+        "copyright": "© 2017 MGM/UA",
+        "genres": [
+          {
+            "genreId": "4001",
+            "name": "Drama",
+            "url": "https://itunes.apple.com/us/genre/id4001"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          },
+          {
+            "genreId": "4008",
+            "name": "Sci-Fi & Fantasy",
+            "url": "https://itunes.apple.com/us/genre/id4008"
+          }
+        ],
+        "id": "1222181719",
+        "kind": "tvSeason",
+        "name": "The Handmaid's Tale, Season 1",
+        "releaseDate": "2017-07-14",
+        "url": "https://itunes.apple.com/us/tv-season/the-handmaids-tale-season-1/id1222181719?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "1259927804",
+        "artistName": "Diana: Seven Days That Shook the World",
+        "artistUrl": "https://itunes.apple.com/us/artist/diana-seven-days-that-shook-the-world/id1259927804?at=1001lybQ",
+        "artworkUrl100": "http://is3.mzstatic.com/image/thumb/Music118/v4/5a/c1/db/5ac1dbb8-7acd-9745-a678-be7107a527bd/source/200x200bb.png",
+        "copyright": "© 2017 Blakeway Productions",
+        "genres": [
+          {
+            "genreId": "4006",
+            "name": "Nonfiction",
+            "url": "https://itunes.apple.com/us/genre/id4006"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          }
+        ],
+        "id": "1259927805",
+        "kind": "tvSeason",
+        "name": "Diana: Seven Days That Shook the World",
+        "releaseDate": "2017-05-30",
+        "url": "https://itunes.apple.com/us/tv-season/diana-seven-days-that-shook-the-world/id1259927805?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "741096884",
+        "artistName": "Rick and Morty",
+        "artistUrl": "https://itunes.apple.com/us/artist/rick-and-morty/id741096884?at=1001lybQ",
+        "artworkUrl100": "http://is2.mzstatic.com/image/thumb/Music6/v4/83/1b/53/831b53f0-48a1-bb47-6596-f3e0e98465a7/source/200x200bb.png",
+        "copyright": "© & TM - Cartoon Network – 2013",
+        "genres": [
+          {
+            "genreId": "4000",
+            "name": "Comedy",
+            "url": "https://itunes.apple.com/us/genre/id4000"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          },
+          {
+            "genreId": "4002",
+            "name": "Animation",
+            "url": "https://itunes.apple.com/us/genre/id4002"
+          }
+        ],
+        "id": "741096885",
+        "kind": "tvSeason",
+        "name": "Rick and Morty, Season 1 (Uncensored)",
+        "releaseDate": "2013-12-02",
+        "url": "https://itunes.apple.com/us/tv-season/rick-and-morty-season-1-uncensored/id741096885?app=itunes&at=1001lybQ"
+      },
+      {
+        "artistId": "674190652",
+        "artistName": "Broadchurch",
+        "artistUrl": "https://itunes.apple.com/us/artist/broadchurch/id674190652?at=1001lybQ",
+        "artworkUrl100": "http://is4.mzstatic.com/image/thumb/Music111/v4/0f/0d/34/0f0d3463-c0de-e130-1cce-0a4ce8fa61ad/source/200x200bb.png",
+        "copyright": "© Kudos Film and Television Limited 2017",
+        "genres": [
+          {
+            "genreId": "4001",
+            "name": "Drama",
+            "url": "https://itunes.apple.com/us/genre/id4001"
+          },
+          {
+            "genreId": "32",
+            "name": "TV Shows",
+            "url": "https://itunes.apple.com/us/genre/id32"
+          }
+        ],
+        "id": "1209491967",
+        "kind": "tvSeason",
+        "name": "Broadchurch, Season 3",
+        "releaseDate": "2017-06-28",
+        "url": "https://itunes.apple.com/us/tv-season/broadchurch-season-3/id1209491967?app=itunes&at=1001lybQ"
+      }
+    ]
+  }
+}
