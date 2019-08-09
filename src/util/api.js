@@ -24,6 +24,7 @@ const buildUrlWithQueryParams = (url, queryParams) => {
     return url;
   }
   const queryPart = Object.keys(queryParams)
+    .filter(key => typeof queryParams[key] !== 'undefined')
     .map(key => `${key}=${queryParams[key]}`)
     .join('&');
   return `${url}?${queryPart}`;

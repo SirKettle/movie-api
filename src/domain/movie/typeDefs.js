@@ -16,8 +16,17 @@ const types = `
   }
 `;
 
+// TODO: typeDefs - enums? build  dynamically using js? nullable/optional?
+
 const queries = `
-    movies: MovieResults
+    movies(
+      page: Int
+      sortBy: String
+      personId: Int
+      allLanguages: Boolean
+      genres: [String]
+      moods: [String]
+    ): MovieResults
 `;
 
 module.exports = { types, queries };
