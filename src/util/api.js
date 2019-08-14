@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 const defaultHeaders = {
   accept: 'application/json',
@@ -6,7 +6,7 @@ const defaultHeaders = {
   'Cache-control': 'no-cache, must-revalidate, no-store',
 };
 
-const createAxiosApi = (baseURL, config = {}) => {
+export const createAxiosApi = (baseURL, config = {}) => {
   const api = axios.create({
     ...config,
     baseURL,
@@ -19,7 +19,7 @@ const createAxiosApi = (baseURL, config = {}) => {
   return api;
 };
 
-const buildUrlWithQueryParams = (url, queryParams) => {
+export const buildUrlWithQueryParams = (url, queryParams) => {
   if (!queryParams) {
     return url;
   }
@@ -28,9 +28,4 @@ const buildUrlWithQueryParams = (url, queryParams) => {
     .map(key => `${key}=${queryParams[key]}`)
     .join('&');
   return `${url}?${queryPart}`;
-};
-
-module.exports = {
-  createAxiosApi,
-  buildUrlWithQueryParams,
 };

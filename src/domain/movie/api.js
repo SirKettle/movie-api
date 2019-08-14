@@ -1,9 +1,7 @@
-const R = require('ramda');
-const constants = require('./constants');
-const apiUtil = require('../../util/api');
+import * as R from 'ramda';
+import { moods, GENRES, MIN_VOTES, SORT_BY } from './constants';
 
-const { buildUrlWithQueryParams, createAxiosApi } = apiUtil;
-const { moods, GENRES, MIN_VOTES, SORT_BY } = constants;
+import { buildUrlWithQueryParams, createAxiosApi } from '../../util/api';
 
 const api = createAxiosApi('https://api.themoviedb.org/3');
 
@@ -38,24 +36,38 @@ const getGenresQuery = (genreKeys = [], moodKeys = []) => {
     .join(',');
 };
 
-module.exports = {
-  getMovies: ({ sortBy, page = 1, genres, moods, personId, allLanguages = false }) => {
-    const queryParams = {
-      api_key: process.env.TMDB_API_KEY,
-      page: page,
-      include_video: false,
-      include_adult: false,
-      language: 'en-US',
-      'vote_count.gte': MIN_VOTES,
-      'primary_release_date.gte': 1945,
-      with_original_language: allLanguages ? void 0 : 'en',
-      with_people: personId || void 0,
-      sort_by: SORT_BY[sortBy] || SORT_BY.HIGHEST_RATED,
-      with_genres: getGenresQuery(genres, moods),
-    };
+const cartesianProduct = R.reduce((acc, list) => (acc.length ? R.map(R.unnest, R.xprod(acc, list)) : list), []);
 
-    const url = buildUrlWithQueryParams(ENDPOINTS.DISCOVER_MOVIES, queryParams);
+const removeDupesAndSort = R.map(combo => R.uniq(combo).sort());
+const uniqueCombos = R.compose(
+  R.uniq,
+  removeDupesAndSort,
+  cartesianProduct,
+);
 
-    return api.get(url).then(response => response.data);
-  },
+const getParams = ({ genreQuery, sortBy, personId, allLanguages = false, page = 1 }) => ({
+  api_key: process.env.TMDB_API_KEY,
+  page: page,
+  include_video: false,
+  include_adult: false,
+  language: 'en-US',
+  'vote_count.gte': MIN_VOTES,
+  'primary_release_date.gte': 1945,
+  with_original_language: allLanguages ? void 0 : 'en',
+  with_people: personId || void 0,
+  sort_by: SORT_BY[sortBy] || SORT_BY.HIGHEST_RATED,
+  with_genres: genreQuery,
+});
+
+export const getMovies = args => {
+  const genreCombinations = uniqueCombos();
+
+  const url = buildUrlWithQueryParams(
+    ENDPOINTS.DISCOVER_MOVIES,
+    getParams({
+      ...R.omit(['genres', 'moods'], args),
+    }),
+  );
+
+  return api.get(url).then(response => response.data);
 };

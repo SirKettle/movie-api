@@ -1,5 +1,5 @@
 // default 'sort_by' popularity.desc
-const SORT_BY = {
+export const SORT_BY = {
   MOST_POPULAR: 'popularity.desc',
   LEAST_POPULAR: 'popularity.asc',
   HIGHEST_REVENUE: 'revenue.desc',
@@ -11,9 +11,9 @@ const SORT_BY = {
 };
 
 // min number of votes needed to show up in results - helps filter out home movies
-const MIN_VOTES = 21;
+export const MIN_VOTES = 21;
 
-const GENRES = {
+export const GENRES = {
   ACTION: 28,
   ADVENTURE: 12,
   ANIMATION: 16,
@@ -35,7 +35,7 @@ const GENRES = {
   WESTERN: 37,
 };
 
-const moods = {
+export const moods = {
   LAUGH: {
     shortLabel: 'Laugh',
     moodFor: 'Laughs',
@@ -108,11 +108,4 @@ const moods = {
     longLabel: 'Some moving illustrations',
     genres: [GENRES.ANIMATION],
   },
-};
-
-module.exports = {
-  GENRES,
-  moods,
-  SORT_BY,
-  MIN_VOTES,
 };

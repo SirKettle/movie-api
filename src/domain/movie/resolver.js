@@ -1,8 +1,8 @@
-const movieApi = require('./api');
+import { getMovies } from './api';
 
-module.exports = {
+export const queries = {
   movies: (_, params = {}) => {
-    return movieApi.getMovies(params).then(json => ({
+    return getMovies(params).then(json => ({
       page: json.page,
       totalResults: json.total_results,
       totalPages: json.total_pages,
