@@ -15,7 +15,7 @@ const resolvers = {
   ...domains.resolvers.map(r => r.fields).reduce((acc, res) => ({ ...acc, ...res }), {}),
 };
 
-console.log(resolvers.Query);
+// console.log(resolvers.Query);
 
 // TODO: Is there a more GraphQL way of extending this schema?
 const typeDefs = gql` 
@@ -28,17 +28,17 @@ const typeDefs = gql`
   }
 `;
 
-console.log(` 
-  # Import types from domains
-  ${domains.typeDefs.map(t => t.types)}
+if (!process.env.TMDB_API_KEY) {
+  throw new Error('API key missing for The Movie Database');
+}
 
-  # The "Query" type is the root of all GraphQL queries.
-  type Query {
-    ${domains.typeDefs.map(t => t.queries)}
-  }
-`);
-
-const server = new ApolloServer({ typeDefs, resolvers });
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  context: () => ({
+    apiKey: process.env.TMDB_API_KEY,
+  }),
+});
 
 server
   .listen()

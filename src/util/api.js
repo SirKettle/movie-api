@@ -19,13 +19,6 @@ export const createAxiosApi = (baseURL, config = {}) => {
   return api;
 };
 
-export const buildUrlWithQueryParams = (url, queryParams) => {
-  if (!queryParams) {
-    return url;
-  }
-  const queryPart = Object.keys(queryParams)
-    .filter(key => typeof queryParams[key] !== 'undefined')
-    .map(key => `${key}=${queryParams[key]}`)
-    .join('&');
-  return `${url}?${queryPart}`;
+export const logApiRequests = (url, { method = 'GET', count = 1 }) => {
+  console.log(`HTTP Request: ${method} '${url}'${count > 1 ? ` (${count} requests)` : ''}`);
 };

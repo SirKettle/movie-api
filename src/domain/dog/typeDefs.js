@@ -1,6 +1,6 @@
 export const types = `
   type Dog {
-    id: String!
+    id: ID!
     name: String!
     breed: String
     habits: [String]!
@@ -8,6 +8,6 @@ export const types = `
 `;
 
 export const queries = `
-  dog(id: String): Dog
+  dog(id: ID): Dog
   dogs: [Dog]!
 `;

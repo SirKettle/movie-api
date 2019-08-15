@@ -7,24 +7,17 @@ export const types = `
     summary: String
     releaseDate: String!
   }
-
-  type MovieResults {
-    page: Int!
-    totalResults: Int!
-    totalPages: Int!
-    results: [Movie]!
-  }
 `;
 
 // TODO: typeDefs - enums? build  dynamically using js? nullable/optional?
 
 export const queries = `
-    movies(
-      page: Int
-      sortBy: String
-      personId: Int
-      allLanguages: Boolean
-      genres: [String]
-      moods: [String]
-    ): MovieResults
+  movies(
+    sortBy: String
+    personId: Int
+    allLanguages: Boolean
+    genres: [String]
+    moods: [String]
+  ): [Movie]!
+  movie(id: ID): Movie
 `;
