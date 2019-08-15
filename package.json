@@ -19,6 +19,7 @@
     "build": "nodemon --exec babel-node src/index.js"
   },
   "dependencies": {
+    "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
     "@babel/node": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
