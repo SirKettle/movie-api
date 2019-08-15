@@ -16,7 +16,7 @@
   },
   "scripts": {
     "start": "nodemon --exec babel-node src/index.js",
-    "build": "node --exec babel-node src/index.js"
+    "build": "babel-node src/index.js"
   },
   "dependencies": {
     "apollo-server": "^2.8.1",
