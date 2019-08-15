@@ -10,8 +10,13 @@
   "main": "src/index.js",
   "license": "MIT",
   "private": true,
+  "engines": {
+    "node": "10.x",
+    "yarn": "1.17.3"
+  },
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js"
+    "start": "nodemon --exec babel-node src/index.js",
+    "build": "node --exec babel-node src/index.js"
   },
   "dependencies": {
     "apollo-server": "^2.8.1",
