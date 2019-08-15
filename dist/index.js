@@ -69,7 +69,7 @@ var server = new _apolloServer.ApolloServer({
   }
 });
 server.listen({
-  port: process.env.PORT || 4000
+  port: process.env.PORT || 80
 }).then(function (_ref) {
   var url = _ref.url;
   console.log("\uD83D\uDE80 Server ready at ".concat(url));
