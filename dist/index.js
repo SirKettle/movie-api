@@ -61,10 +61,10 @@ var server = new _apolloServer.ApolloServer({
   }
 });
 server.listen({
-  port: process.env.PORT || 80
+  port: process.env.PORT || 4000
 }).then(function (_ref) {
   var url = _ref.url;
-  console.log("\uD83D\uDE80 (80) Dogs API ready at ".concat(url));
+  console.log("\uD83D\uDE80 Doggies API ready at ".concat(url));
 })["catch"](function (err) {
   return console.error(err);
 });

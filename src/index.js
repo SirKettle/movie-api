@@ -104,8 +104,8 @@ const server = new ApolloServer({
 });
 
 server
-  .listen({ port: process.env.PORT || 80 })
+  .listen({ port: process.env.PORT || 4000 })
   .then(({ url }) => {
-    console.log(`🚀 (80) Dogs API ready at ${url}`);
+    console.log(`🚀 Doggies API ready at ${url}`);
   })
   .catch(err => console.error(err));
