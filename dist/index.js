@@ -1,19 +1,14 @@
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.getDogs = void 0;
+
 var _apolloServer = require("apollo-server");
 
-var dogResolver = _interopRequireWildcard(require("./domain/dog/resolver"));
-
-var dogTypeDefs = _interopRequireWildcard(require("./domain/dog/typeDefs"));
-
-var movieResolver = _interopRequireWildcard(require("./domain/movie/resolver"));
-
-var movieTypeDefs = _interopRequireWildcard(require("./domain/movie/typeDefs"));
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
-
 function _templateObject() {
-  var data = _taggedTemplateLiteral([" \n  # Import types from domains\n  ", "\n\n  # The \"Query\" type is the root of all GraphQL queries.\n  type Query {\n    ", "\n  }\n"]);
+  var data = _taggedTemplateLiteral(["\n    type Dog {\n      id: ID!\n      name: String!\n      breed: String\n      habits: [String]!\n    }\n\n    type Query {\n      dogs: [Dog]!\n    }\n  "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -24,48 +19,45 @@ function _templateObject() {
 
 function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+var dogs = [{
+  id: 'hattie',
+  habits: ['sleeping', 'tennis balls'],
+  name: 'Hattie',
+  breed: 'Cocker spaniel'
+}, {
+  id: 'buddy',
+  habits: ['barking', 'tennis balls', 'cuddles'],
+  name: 'Buddy',
+  breed: 'Boston Hua Hua'
+}, {
+  id: 'harvey',
+  habits: ['footballs', 'eating', 'cuddles'],
+  name: 'Harvey',
+  breed: 'Labrador Retriever cross'
+}, {
+  id: 'beau',
+  habits: ['footballs', 'eating', 'cuddles'],
+  name: 'Beau',
+  breed: 'Labrador Alsation cross'
+}];
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-var domains = {
-  resolvers: [dogResolver, movieResolver],
-  typeDefs: [dogTypeDefs, movieTypeDefs]
+var getDogs = function getDogs() {
+  return new Promise(function (resolve) {
+    setTimeout(function () {
+      resolve(dogs);
+    }, 400);
+  });
 };
 
-var resolvers = _objectSpread({
-  Query: domains.resolvers.map(function (r) {
-    return r.queries;
-  }).reduce(function (acc, res) {
-    return _objectSpread({}, acc, {}, res);
-  }, {})
-}, domains.resolvers.map(function (r) {
-  return r.fields;
-}).reduce(function (acc, res) {
-  return _objectSpread({}, acc, {}, res);
-}, {})); // console.log(resolvers.Query);
-// TODO: Is there a more GraphQL way of extending this schema?
-
-
-var typeDefs = (0, _apolloServer.gql)(_templateObject(), domains.typeDefs.map(function (t) {
-  return t.types;
-}), domains.typeDefs.map(function (t) {
-  return t.queries;
-}));
-
-if (!process.env.TMDB_API_KEY) {
-  throw new Error('API key missing for The Movie Database');
-}
-
+exports.getDogs = getDogs;
 var server = new _apolloServer.ApolloServer({
-  typeDefs: typeDefs,
-  resolvers: resolvers,
-  context: function context() {
-    return {
-      apiKey: process.env.TMDB_API_KEY
-    };
+  typeDefs: (0, _apolloServer.gql)(_templateObject()),
+  resolvers: {
+    Query: {
+      dogs: function dogs() {
+        return getDogs();
+      }
+    }
   }
 });
 server.listen({
