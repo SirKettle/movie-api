@@ -1,6 +1,6 @@
 {
   "name": "movie-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "GraphQl API to query TMDB database",
   "author": {
     "name": "Will Thirkettle",
@@ -20,12 +20,8 @@
   },
   "dependencies": {
     "apollo-server": "^2.8.1",
-    "apollo-server-hapi": "^2.8.1",
     "axios": "^0.19.0",
     "graphql": "^14.4.2",
-    "hapi": "^18.1.0",
-    "mongoose": "^5.6.8",
-    "nodemon": "^1.19.1",
     "ramda": "^0.26.1"
   },
   "devDependencies": {
