@@ -16,7 +16,8 @@
   },
   "scripts": {
     "build": "node dist/index.js",
-    "compile": "babel src -d dist"
+    "compile": "babel src -d dist",
+    "heroku-postbuild": "node dist/index.js"
   },
   "dependencies": {
     "apollo-server": "^2.8.1",
