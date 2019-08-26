@@ -44,11 +44,13 @@ const server = new ApolloServer({
   context: () => ({
     apiKey: process.env.TMDB_API_KEY,
   }),
+  introspection: true,
+  playground: true,
 });
 
 server.applyMiddleware({ app });
 
-app.get('/', (req, res) => res.send('Movie GraphQL API'));
+app.get('/', (req, res) => res.send(`Movie GraphQL API - go to ${server.graphqlPath} to explore API`));
 
 app.listen(port, () => {
   if (isDebugMode) {
