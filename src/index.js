@@ -84,7 +84,7 @@ export const getDogs = () =>
     }, 400);
   });
 
-const PORT = process.env.PORT || 4000;
+const port = process.env.PORT || 4000;
 
 const app = express();
 
@@ -110,8 +110,18 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-app.listen({ port: PORT }, () =>
-  console.log(`🚀 Server (powered by apollo-server-express) ready at http://localhost:4000${server.graphqlPath}`),
-);
+const mode = process.env.NODE_ENV || 'development';
+const isDebugMode = mode === 'development';
+
+app.get('/', (req, res) => res.send('Movie GraphQL API'));
+
+app.listen(port, () => {
+  if (isDebugMode) {
+    console.log(`API (${mode}) ready at http://localhost:${port}`);
+    console.log(`🚀 Server (powered by apollo-server-express) ready at http://localhost:${port}${server.graphqlPath}`);
+  } else {
+    console.log(`API (${mode}) ready - port assigned by Heroku: ${port}`);
+  }
+});
 
 export default app;

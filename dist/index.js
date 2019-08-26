@@ -54,7 +54,7 @@ var getDogs = function getDogs() {
 };
 
 exports.getDogs = getDogs;
-var PORT = process.env.PORT || 4000;
+var port = process.env.PORT || 4000;
 var app = (0, _express["default"])();
 var server = new _apolloServerExpress.ApolloServer({
   typeDefs: (0, _apolloServerExpress.gql)(_templateObject()),
@@ -69,10 +69,18 @@ var server = new _apolloServerExpress.ApolloServer({
 server.applyMiddleware({
   app: app
 });
-app.listen({
-  port: PORT
-}, function () {
-  return console.log("\uD83D\uDE80 Server (powered by apollo-server-express) ready at http://localhost:4000".concat(server.graphqlPath));
+var mode = process.env.NODE_ENV || 'development';
+var isDebugMode = mode === 'development';
+app.get('/', function (req, res) {
+  return res.send('Movie GraphQL API');
+});
+app.listen(port, function () {
+  if (isDebugMode) {
+    console.log("API (".concat(mode, ") ready at http://localhost:").concat(port));
+    console.log("\uD83D\uDE80 Server (powered by apollo-server-express) ready at http://localhost:".concat(port).concat(server.graphqlPath));
+  } else {
+    console.log("API (".concat(mode, ") ready - port assigned by Heroku: ").concat(port));
+  }
 });
 var _default = app;
 exports["default"] = _default;
