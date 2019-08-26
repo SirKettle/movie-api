@@ -79,13 +79,15 @@ var server = new _apolloServerExpress.ApolloServer({
     return {
       apiKey: process.env.TMDB_API_KEY
     };
-  }
+  },
+  introspection: true,
+  playground: true
 });
 server.applyMiddleware({
   app: app
 });
 app.get('/', function (req, res) {
-  return res.send('Movie GraphQL API');
+  return res.send("Movie GraphQL API - go to ".concat(server.graphqlPath, " to explore API"));
 });
 app.listen(port, function () {
   if (isDebugMode) {
