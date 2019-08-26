@@ -5,10 +5,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getDogs = void 0;
 
-var _apolloServer = require("apollo-server");
+var _apolloServerExpress = require("apollo-server-express");
+
+var _express = _interopRequireDefault(require("express"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral(["\n    type Dog {\n      id: ID!\n      name: String!\n      breed: String\n      habits: [String]!\n    }\n\n    type Query {\n      dogs: [Dog]!\n    }\n  "]);
+  var data = _taggedTemplateLiteral(["\n      type Dog {\n        id: ID!\n        name: String!\n        breed: String\n        habits: [String]!\n      }\n\n      type Query {\n        dogs: [Dog]!\n      }\n    "]);
 
   _templateObject = function _templateObject() {
     return data;
@@ -50,21 +54,28 @@ var getDogs = function getDogs() {
 };
 
 exports.getDogs = getDogs;
-var server = new _apolloServer.ApolloServer({
-  typeDefs: (0, _apolloServer.gql)(_templateObject()),
-  resolvers: {
-    Query: {
-      dogs: function dogs() {
-        return getDogs();
+var PORT = process.env.PORT || 4000;
+
+var startServer = function startServer() {
+  var app = (0, _express["default"])();
+  var server = new _apolloServerExpress.ApolloServer({
+    typeDefs: (0, _apolloServerExpress.gql)(_templateObject()),
+    resolvers: {
+      Query: {
+        dogs: function dogs() {
+          return getDogs();
+        }
       }
     }
-  }
-});
-server.listen({
-  port: process.env.PORT || 4000
-}).then(function (_ref) {
-  var url = _ref.url;
-  console.log("\uD83D\uDE80 Doggies API ready at ".concat(url));
-})["catch"](function (err) {
-  return console.error(err);
-});
+  });
+  server.applyMiddleware({
+    app: app
+  });
+  app.listen({
+    port: PORT
+  }, function () {
+    return console.log("\uD83D\uDE80 Server (powered by apollo-server-express) ready at http://localhost:4000".concat(server.graphqlPath));
+  });
+};
+
+startServer();

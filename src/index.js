@@ -47,7 +47,8 @@
 //   })
 //   .catch(err => console.error(err));
 
-import { ApolloServer, gql } from 'apollo-server';
+import { ApolloServer, gql } from 'apollo-server-express';
+import express from 'express';
 
 const dogs = [
   {
@@ -83,6 +84,10 @@ export const getDogs = () =>
     }, 400);
   });
 
+const PORT = process.env.PORT || 4000;
+
+const app = express();
+
 const server = new ApolloServer({
   typeDefs: gql`
     type Dog {
@@ -103,9 +108,10 @@ const server = new ApolloServer({
   },
 });
 
-server
-  .listen({ port: process.env.PORT || 4000 })
-  .then(({ url }) => {
-    console.log(`🚀 Doggies API ready at ${url}`);
-  })
-  .catch(err => console.error(err));
+server.applyMiddleware({ app });
+
+app.listen({ port: PORT }, () =>
+  console.log(`🚀 Server (powered by apollo-server-express) ready at http://localhost:4000${server.graphqlPath}`),
+);
+
+export default app;
