@@ -9,10 +9,6 @@ var _apolloServerExpress = require("apollo-server-express");
 
 var _express = _interopRequireDefault(require("express"));
 
-var dogResolver = _interopRequireWildcard(require("./domain/dog/resolver"));
-
-var dogTypeDefs = _interopRequireWildcard(require("./domain/dog/typeDefs"));
-
 var movieResolver = _interopRequireWildcard(require("./domain/movie/resolver"));
 
 var movieTypeDefs = _interopRequireWildcard(require("./domain/movie/typeDefs"));
@@ -44,8 +40,8 @@ var port = process.env.PORT || 4000;
 var mode = process.env.NODE_ENV || 'development';
 var isDebugMode = mode === 'development';
 var domains = {
-  resolvers: [dogResolver, movieResolver],
-  typeDefs: [dogTypeDefs, movieTypeDefs]
+  resolvers: [movieResolver],
+  typeDefs: [movieTypeDefs]
 };
 
 var resolvers = _objectSpread({

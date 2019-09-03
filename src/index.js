@@ -1,8 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-express';
 import express from 'express';
 
-import * as dogResolver from './domain/dog/resolver';
-import * as dogTypeDefs from './domain/dog/typeDefs';
 import * as movieResolver from './domain/movie/resolver';
 import * as movieTypeDefs from './domain/movie/typeDefs';
 
@@ -12,8 +10,8 @@ const mode = process.env.NODE_ENV || 'development';
 const isDebugMode = mode === 'development';
 
 const domains = {
-  resolvers: [dogResolver, movieResolver],
-  typeDefs: [dogTypeDefs, movieTypeDefs],
+  resolvers: [movieResolver],
+  typeDefs: [movieTypeDefs],
 };
 
 const resolvers = {
