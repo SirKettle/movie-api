@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.logApiRequests = exports.createAxiosApi = void 0;
+exports.logApiRequests = exports.createAxiosApi = exports.getUriSafe = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
@@ -21,13 +21,27 @@ var defaultHeaders = {
   'Cache-control': 'no-cache, must-revalidate, no-store'
 };
 
+var getUriSafe = function getUriSafe(str) {
+  return str.replace(/ /gi, '-').replace(/[^A-Za-z0-9_-]/gi, '');
+};
+
+exports.getUriSafe = getUriSafe;
+
 var createAxiosApi = function createAxiosApi(baseURL) {
   var config = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+  var log = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : true;
 
   var api = _axios["default"].create(_objectSpread({}, config, {
     baseURL: baseURL,
     headers: _objectSpread({}, defaultHeaders, {}, config.headers)
   }));
+
+  if (log) {
+    api.interceptors.request.use(function (request) {
+      console.log("".concat(request.method.toUpperCase(), " ").concat(request.baseURL).concat(request.url));
+      return request;
+    });
+  }
 
   return api;
 };

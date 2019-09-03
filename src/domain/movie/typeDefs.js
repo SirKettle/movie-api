@@ -6,6 +6,7 @@ export const types = `
     backgroundImage: String
     summary: String
     releaseDate: String!
+    itunesUrl: String
   }
 `;
 

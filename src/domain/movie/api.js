@@ -35,7 +35,7 @@ const logResults = res => {
 };
 
 const combineResponsesResults = R.compose(
-  // logResults,
+  logResults,
   R.uniq,
   R.flatten,
   R.map(R.path(['data', 'results'])),

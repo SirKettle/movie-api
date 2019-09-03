@@ -6,7 +6,9 @@ const defaultHeaders = {
   'Cache-control': 'no-cache, must-revalidate, no-store',
 };
 
-export const createAxiosApi = (baseURL, config = {}) => {
+export const getUriSafe = str => str.replace(/ /gi, '-').replace(/[^A-Za-z0-9_-]/gi, '');
+
+export const createAxiosApi = (baseURL, config = {}, log = true) => {
   const api = axios.create({
     ...config,
     baseURL,
@@ -15,6 +17,13 @@ export const createAxiosApi = (baseURL, config = {}) => {
       ...config.headers,
     },
   });
+
+  if (log) {
+    api.interceptors.request.use(request => {
+      console.log(`${request.method.toUpperCase()} ${request.baseURL}${request.url}`);
+      return request;
+    });
+  }
 
   return api;
 };

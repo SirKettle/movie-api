@@ -5,36 +5,69 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.queries = void 0;
 
+var _graphqlFields = _interopRequireDefault(require("graphql-fields"));
+
 var _api = require("./api");
+
+var _api2 = require("../itunes/api");
+
+var _utils = require("../itunes/utils");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var getRequestedFields = function getRequestedFields(info) {
+  return Object.keys((0, _graphqlFields["default"])(info));
+};
+
+var includesRequestedField = function includesRequestedField(field, info) {
+  return getRequestedFields(info).includes(field);
+};
+
+var includesItunesUrlRequest = function includesItunesUrlRequest(info) {
+  return includesRequestedField('itunesUrl', info);
+};
+
+var mapMovieResult = function mapMovieResult(result) {
+  return {
+    id: result.id,
+    name: result.original_title,
+    summary: result.overview,
+    releaseDate: result.release_date,
+    posterImage: result.poster_path,
+    backgroundImage: result.backdrop_path,
+    itunesUrl: null
+  };
+};
 
 var queries = {
   movies: function movies(_) {
     var params = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
     var context = arguments.length > 2 ? arguments[2] : undefined;
+    var info = arguments.length > 3 ? arguments[3] : undefined;
     return (0, _api.apiService)(context).getMovies(params).then(function (json) {
-      return json.map(function (result) {
-        return {
-          id: result.id,
-          name: result.original_title,
-          summary: result.overview,
-          releaseDate: result.release_date,
-          posterImage: result.poster_path,
-          backgroundImage: result.backdrop_path
-        };
-      });
+      return json.map(mapMovieResult);
     });
   },
-  movie: function movie(_, _ref, context) {
+  movie: function movie(_, _ref, context, info) {
     var id = _ref.id;
     return (0, _api.apiService)(context).getMovie(id).then(function (result) {
-      return {
-        id: result.id,
-        name: result.original_title,
-        summary: result.overview,
-        releaseDate: result.release_date,
-        posterImage: result.poster_path,
-        backgroundImage: result.backdrop_path
-      };
+      var movie = mapMovieResult(result);
+
+      if (includesItunesUrlRequest(info)) {
+        return (0, _api2.apiService)().getMovieResults(movie.name).then(function (itunesResults) {
+          return _objectSpread({}, movie, {
+            itunesUrl: (0, _utils.getBestMovieMatchAffiliateLink)(itunesResults, movie) || null
+          });
+        });
+      }
+
+      return movie;
     });
   }
 };
