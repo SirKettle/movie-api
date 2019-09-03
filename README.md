@@ -10,7 +10,7 @@ GraphQL API for movies: Get movie results based on genres, moods and more
 ---
 ## Running the API
 
-##### Development
+### Development
 
 Install dependencies
 ```typescript jsx
@@ -21,7 +21,7 @@ Run development environment
 yarn dev
 ```
 
-##### Production
+### Production
 
 Install dependencies
 ```typescript jsx
