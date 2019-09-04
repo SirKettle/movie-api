@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getBestMovieMatchAffiliateLink = exports.getBestMovieMatch = exports.getAffiliateLink = exports.getId = void 0;
+exports.getBestMovieMatchAffiliateLink = exports.getBestMovieMatch = exports.convertItunesUrl = exports.getAffiliateLink = exports.getId = void 0;
 
 var _api = require("../../util/api");
 
@@ -30,6 +30,16 @@ var getAffiliateLink = function getAffiliateLink(_ref) {
 };
 
 exports.getAffiliateLink = getAffiliateLink;
+
+var convertItunesUrl = function convertItunesUrl(originalUrl, movie) {
+  var trackId = originalUrl.split('?')[0].split('/').pop().replace(/id/, '');
+  return getAffiliateLink({
+    trackId: trackId,
+    title: movie.name
+  });
+};
+
+exports.convertItunesUrl = convertItunesUrl;
 
 var getIsMatch = function getIsMatch(result, movie) {
   var trackName = result.trackName || result.artistName;

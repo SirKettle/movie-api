@@ -9,7 +9,11 @@ var _graphqlFields = _interopRequireDefault(require("graphql-fields"));
 
 var _api = require("./api");
 
-var _api2 = require("../itunes/api");
+var _api2 = require("../utelly/api");
+
+var _util = require("../utelly/util");
+
+var _api3 = require("../itunes/api");
 
 var _utils = require("../itunes/utils");
 
@@ -29,10 +33,6 @@ var includesRequestedField = function includesRequestedField(field, info) {
   return getRequestedFields(info).includes(field);
 };
 
-var includesItunesUrlRequest = function includesItunesUrlRequest(info) {
-  return includesRequestedField('itunesUrl', info);
-};
-
 var mapMovieResult = function mapMovieResult(result) {
   return {
     id: result.id,
@@ -41,7 +41,8 @@ var mapMovieResult = function mapMovieResult(result) {
     releaseDate: result.release_date,
     posterImage: result.poster_path,
     backgroundImage: result.backdrop_path,
-    itunesUrl: null
+    itunesUrl: null,
+    streamingServices: null
   };
 };
 
@@ -59,8 +60,16 @@ var queries = {
     return (0, _api.apiService)(context).getMovie(id).then(function (result) {
       var movie = mapMovieResult(result);
 
-      if (includesItunesUrlRequest(info)) {
-        return (0, _api2.apiService)().getMovieResults(movie.name).then(function (itunesResults) {
+      if (includesRequestedField('streamingServices', info)) {
+        return (0, _api2.apiService)(context).getStreamingAvailability(movie.name).then(function (results) {
+          return _objectSpread({}, movie, {
+            streamingServices: (0, _util.getStreamingServices)(results, movie)
+          });
+        });
+      }
+
+      if (includesRequestedField('itunesUrl', info)) {
+        return (0, _api3.apiService)().getMovieResults(movie.name).then(function (itunesResults) {
           return _objectSpread({}, movie, {
             itunesUrl: (0, _utils.getBestMovieMatchAffiliateLink)(itunesResults, movie) || null
           });

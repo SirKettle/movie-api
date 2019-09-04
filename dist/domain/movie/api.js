@@ -91,9 +91,9 @@ var getGenreQueries = function getGenreQueries() {
 };
 
 var apiService = function apiService(_ref2) {
-  var apiKey = _ref2.apiKey;
+  var tmdbApiKey = _ref2.tmdbApiKey;
   var withBaseParams = {
-    api_key: apiKey,
+    api_key: tmdbApiKey,
     language: 'en-US'
   };
   return {

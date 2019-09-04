@@ -67,13 +67,19 @@ if (!process.env.TMDB_API_KEY) {
   throw new Error('API key missing for The Movie Database');
 }
 
+if (!process.env.UTELLY_API_KEY) {
+  throw new Error('API key missing for Utelly');
+}
+
 console.log("tmdb key: ".concat(process.env.TMDB_API_KEY));
+console.log("utelly key: ".concat(process.env.UTELLY_API_KEY));
 var server = new _apolloServerExpress.ApolloServer({
   typeDefs: typeDefs,
   resolvers: resolvers,
   context: function context() {
     return {
-      apiKey: process.env.TMDB_API_KEY
+      tmdbApiKey: process.env.TMDB_API_KEY,
+      utellyApiKey: process.env.UTELLY_API_KEY
     };
   },
   introspection: true,
