@@ -1,4 +1,11 @@
 export const types = `
+
+  type StreamingService {
+    name: String!
+    url: String!
+    icon: String
+  }
+
   type Movie {
     id: ID!
     name: String!
@@ -6,7 +13,8 @@ export const types = `
     backgroundImage: String
     summary: String
     releaseDate: String!
-    itunesUrl: String
+    itunesUrl: String,
+    streamingServices: [StreamingService]
   }
 `;
 

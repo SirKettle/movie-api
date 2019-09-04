@@ -46,8 +46,8 @@ const getGenreQueries = (moods = [], genres = []) =>
     .concat(genreCodesByKeys(genres).map(g => [g]))
     .map(codes => codes.join(','));
 
-export const apiService = ({ apiKey }) => {
-  const withBaseParams = { api_key: apiKey, language: 'en-US' };
+export const apiService = ({ tmdbApiKey }) => {
+  const withBaseParams = { api_key: tmdbApiKey, language: 'en-US' };
 
   return {
     getMovie: id => api.get(ENDPOINTS.MOVIE(id), { params: { ...withBaseParams } }).then(R.prop('data')),

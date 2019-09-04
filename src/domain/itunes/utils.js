@@ -18,12 +18,20 @@ export const getAffiliateLink = ({
     title,
   )}/id${trackId}?at=${affiliateToken}&ct=${campaignToken}`;
 
+export const convertItunesUrl = (originalUrl, movie) => {
+  const trackId = originalUrl
+    .split('?')[0]
+    .split('/')
+    .pop()
+    .replace(/id/, '');
+  return getAffiliateLink({ trackId, title: movie.name });
+};
+
 const getIsMatch = (result, movie) => {
   const trackName = result.trackName || result.artistName;
   if (trackName && trackName.indexOf(movie.name) !== -1) {
     return Boolean(result.releaseDate && result.releaseDate.slice(0, 4) === movie.releaseDate.slice(0, 4));
   }
-
   return false;
 };
 

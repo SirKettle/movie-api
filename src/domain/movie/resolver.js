@@ -1,13 +1,13 @@
 import graphqlFields from 'graphql-fields';
 import { apiService } from './api';
+import { apiService as utellyApiService } from '../utelly/api';
+import { getStreamingServices } from '../utelly/util';
 import { apiService as iTunesApiService } from '../itunes/api';
 import { getBestMovieMatchAffiliateLink } from '../itunes/utils';
 
 const getRequestedFields = info => Object.keys(graphqlFields(info));
 
 const includesRequestedField = (field, info) => getRequestedFields(info).includes(field);
-
-const includesItunesUrlRequest = info => includesRequestedField('itunesUrl', info);
 
 const mapMovieResult = result => ({
   id: result.id,
@@ -17,6 +17,7 @@ const mapMovieResult = result => ({
   posterImage: result.poster_path,
   backgroundImage: result.backdrop_path,
   itunesUrl: null,
+  streamingServices: null,
 });
 
 export const queries = {
@@ -30,15 +31,21 @@ export const queries = {
       .getMovie(id)
       .then(result => {
         const movie = mapMovieResult(result);
-        if (includesItunesUrlRequest(info)) {
+        if (includesRequestedField('streamingServices', info)) {
+          return utellyApiService(context)
+            .getStreamingAvailability(movie.name)
+            .then(results => ({
+              ...movie,
+              streamingServices: getStreamingServices(results, movie),
+            }));
+        }
+        if (includesRequestedField('itunesUrl', info)) {
           return iTunesApiService()
             .getMovieResults(movie.name)
-            .then(itunesResults => {
-              return {
-                ...movie,
-                itunesUrl: getBestMovieMatchAffiliateLink(itunesResults, movie) || null,
-              };
-            });
+            .then(itunesResults => ({
+              ...movie,
+              itunesUrl: getBestMovieMatchAffiliateLink(itunesResults, movie) || null,
+            }));
         }
         return movie;
       }),
