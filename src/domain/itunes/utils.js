@@ -18,7 +18,7 @@ export const getAffiliateLink = ({
     title,
   )}/id${trackId}?at=${affiliateToken}&ct=${campaignToken}`;
 
-export const convertItunesUrl = (originalUrl, movie) => {
+export const convertItunesUrl = (originalUrl = '', movie) => {
   const trackId = originalUrl
     .split('?')[0]
     .split('/')

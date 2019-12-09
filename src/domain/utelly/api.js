@@ -2,6 +2,7 @@ import * as R from 'ramda';
 
 import { createAxiosApi } from '../../util/api';
 
+// Docs: https://rapidapi.com/utelly/api/utelly/endpoints
 const api = createAxiosApi('https://utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com', {
   headers: {
     'x-rapidapi-host': 'utelly-tv-shows-and-movies-availability-v1.p.rapidapi.com',

@@ -7,11 +7,12 @@ import { uniqueCartesianProduct } from '../../util/cartesianProduct';
 const api = createAxiosApi('https://api.themoviedb.org/3');
 
 const ENDPOINTS = {
-  CONFIGURATION: `/configuration`,
-  DISCOVER_MOVIES: `/discover/movie`,
-  DISCOVER_TV: `/discover/tv`,
+  CONFIGURATION: '/configuration',
+  DISCOVER_MOVIES: '/discover/movie',
+  DISCOVER_TV: '/discover/tv',
   MOVIE: id => `/movie/${id}`,
   TV: id => `/tv/${id}`,
+  SEARCH: '/search/multi',
 };
 
 const genreCodesByMoods = R.map(key => moods[key].genres);
@@ -68,5 +69,8 @@ export const apiService = ({ tmdbApiKey }) => {
         ),
       ).then(([...responses]) => combineResponsesResults(responses));
     },
+
+    getSearchResults: query =>
+      api.get(ENDPOINTS.SEARCH, { params: { ...withBaseParams, query } }).then(R.path(['data', 'results'])),
   };
 };

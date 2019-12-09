@@ -1,25 +1,32 @@
-import { pick } from 'ramda';
 import { convertItunesUrl } from '../itunes/utils';
 
-export const mapResultLocation = movie => res => {
-  switch (res.name) {
+export const mapResultLocation = ({ movie, amazonAssociateId }) => ({ icon, name, url }) => {
+  const service = {
+    icon,
+    name,
+    url: url.replace(/tag=utellycom00-21/gi, `tag=${amazonAssociateId}`),
+  };
+
+  switch (name) {
     case 'ITunes':
       return {
-        ...pick(['name', 'icon'])(res),
-        url: convertItunesUrl(res.url, movie),
+        icon,
+        name,
+        url: convertItunesUrl(url, movie),
       };
+
     default:
-      return pick(['name', 'url', 'icon'])(res);
+      return service;
   }
 };
 
-export const getStreamingServices = (results = [], movie) => {
+export const getStreamingServices = (results = [], { movie, amazonAssociateId }) => {
   const bestMatch = results[0];
 
   if (bestMatch) {
-    console.log(JSON.stringify(bestMatch.locations));
-
-    return bestMatch.locations.map(mapResultLocation(movie));
+    return bestMatch.locations
+      .filter(res => Boolean(res && res.name && res.url))
+      .map(mapResultLocation({ movie, amazonAssociateId }));
   }
 
   return void 0;

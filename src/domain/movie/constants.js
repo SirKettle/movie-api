@@ -13,6 +13,18 @@ export const SORT_BY = {
 // min number of votes needed to show up in results - helps filter out home movies
 export const MIN_VOTES = 21;
 
+export const MEDIA_TYPE = {
+  MOVIE: 'MOVIE',
+  PERSON: 'PERSON',
+  TV: 'TV',
+};
+
+export const tmdbMediaTypes = {
+  MOVIE: 'movie',
+  PERSON: 'person',
+  TV: 'tv',
+};
+
 export const GENRES = {
   ACTION: 28,
   ADVENTURE: 12,

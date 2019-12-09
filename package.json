@@ -1,7 +1,7 @@
 {
   "name": "movie-api",
   "version": "1.0.2",
-  "description": "GraphQl API to query TMDB database",
+  "description": "GraphQl API for movies and TV",
   "author": {
     "name": "Will Thirkettle",
     "email": "hello@willthirkettle.co.uk",
@@ -11,8 +11,8 @@
   "license": "MIT",
   "private": true,
   "engines": {
-    "node": "10.10.0",
-    "yarn": "1.17.3"
+    "node": ">=10.10.0",
+    "yarn": ">=1.17.3"
   },
   "scripts": {
     "dev": "nodemon --exec babel-node ./src/index.js",

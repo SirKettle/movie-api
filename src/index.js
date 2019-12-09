@@ -1,5 +1,6 @@
 import { ApolloServer, gql } from 'apollo-server-express';
 import express from 'express';
+import pkg from '../package.json';
 
 import * as movieResolver from './domain/movie/resolver';
 import * as movieTypeDefs from './domain/movie/typeDefs';
@@ -15,8 +16,8 @@ const domains = {
 };
 
 const resolvers = {
-  Query: domains.resolvers.map(r => r.queries).reduce((acc, res) => ({ ...acc, ...res }), {}),
   ...domains.resolvers.map(r => r.fields).reduce((acc, res) => ({ ...acc, ...res }), {}),
+  Query: domains.resolvers.map(r => r.queries).reduce((acc, res) => ({ ...acc, ...res }), {}),
 };
 
 // TODO: Is there a more GraphQL way of extending this schema?
@@ -38,15 +39,13 @@ if (!process.env.UTELLY_API_KEY) {
   throw new Error('API key missing for Utelly');
 }
 
-console.log(`tmdb key: ${process.env.TMDB_API_KEY}`);
-console.log(`utelly key: ${process.env.UTELLY_API_KEY}`);
-
 const server = new ApolloServer({
   typeDefs,
   resolvers,
   context: () => ({
     tmdbApiKey: process.env.TMDB_API_KEY,
     utellyApiKey: process.env.UTELLY_API_KEY,
+    amazonAssociateId: 'thirkettle-21',
   }),
   introspection: true,
   playground: true,
@@ -58,8 +57,19 @@ app.get('/', (req, res) => res.send(`Movie GraphQL API - go to ${server.graphqlP
 
 app.listen(port, () => {
   if (isDebugMode) {
-    console.log(`API (${mode}) ready at http://localhost:${port}`);
-    console.log(`🚀 Server (powered by apollo-server-express) ready at http://localhost:${port}${server.graphqlPath}`);
+    console.log(`
+                                   O~                                   O~
+O~~~ O~~ O~~    O~~    O~~     O~~      O~~             O~~    O~ O~~     
+ O~~  O~  O~~ O~~  O~~  O~~   O~~ O~~ O~   O~~ O~~~~~ O~~  O~~ O~  O~~ O~~
+ O~~  O~  O~~O~~    O~~  O~~ O~~  O~~O~~~~~ O~~      O~~   O~~ O~   O~~O~~
+ O~~  O~  O~~ O~~  O~~    O~O~~   O~~O~              O~~   O~~ O~~ O~~ O~~
+O~~~  O~  O~~   O~~        O~~    O~~  O~~~~           O~~ O~~~O~~     O~~
+                                                               O~~
+                 `);
+    console.log(`🚀 ${pkg.name} v${pkg.version} - by ${pkg.author.name}`);
+    console.log(pkg.description);
+    console.log(`- - - - - - - - - - - - - - - - - `);
+    console.log(`Ready at http://localhost:${port}${server.graphqlPath}`);
   } else {
     console.log(`API (${mode}) ready - port assigned by Heroku: ${port}`);
   }
