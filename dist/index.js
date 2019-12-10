@@ -9,6 +9,8 @@ var _apolloServerExpress = require("apollo-server-express");
 
 var _express = _interopRequireDefault(require("express"));
 
+var _package = _interopRequireDefault(require("../package.json"));
+
 var movieResolver = _interopRequireWildcard(require("./domain/movie/resolver"));
 
 var movieTypeDefs = _interopRequireWildcard(require("./domain/movie/typeDefs"));
@@ -44,17 +46,17 @@ var domains = {
   typeDefs: [movieTypeDefs]
 };
 
-var resolvers = _objectSpread({
+var resolvers = _objectSpread({}, domains.resolvers.map(function (r) {
+  return r.fields;
+}).reduce(function (acc, res) {
+  return _objectSpread({}, acc, {}, res);
+}, {}), {
   Query: domains.resolvers.map(function (r) {
     return r.queries;
   }).reduce(function (acc, res) {
     return _objectSpread({}, acc, {}, res);
   }, {})
-}, domains.resolvers.map(function (r) {
-  return r.fields;
-}).reduce(function (acc, res) {
-  return _objectSpread({}, acc, {}, res);
-}, {})); // TODO: Is there a more GraphQL way of extending this schema?
+}); // TODO: Is there a more GraphQL way of extending this schema?
 
 
 var typeDefs = (0, _apolloServerExpress.gql)(_templateObject(), domains.typeDefs.map(function (t) {
@@ -71,15 +73,14 @@ if (!process.env.UTELLY_API_KEY) {
   throw new Error('API key missing for Utelly');
 }
 
-console.log("tmdb key: ".concat(process.env.TMDB_API_KEY));
-console.log("utelly key: ".concat(process.env.UTELLY_API_KEY));
 var server = new _apolloServerExpress.ApolloServer({
   typeDefs: typeDefs,
   resolvers: resolvers,
   context: function context() {
     return {
       tmdbApiKey: process.env.TMDB_API_KEY,
-      utellyApiKey: process.env.UTELLY_API_KEY
+      utellyApiKey: process.env.UTELLY_API_KEY,
+      amazonAssociateId: 'thirkettle-21'
     };
   },
   introspection: true,
@@ -93,8 +94,11 @@ app.get('/', function (req, res) {
 });
 app.listen(port, function () {
   if (isDebugMode) {
-    console.log("API (".concat(mode, ") ready at http://localhost:").concat(port));
-    console.log("\uD83D\uDE80 Server (powered by apollo-server-express) ready at http://localhost:".concat(port).concat(server.graphqlPath));
+    console.log("\n                                   O~                                   O~\nO~~~ O~~ O~~    O~~    O~~     O~~      O~~             O~~    O~ O~~     \n O~~  O~  O~~ O~~  O~~  O~~   O~~ O~~ O~   O~~ O~~~~~ O~~  O~~ O~  O~~ O~~\n O~~  O~  O~~O~~    O~~  O~~ O~~  O~~O~~~~~ O~~      O~~   O~~ O~   O~~O~~\n O~~  O~  O~~ O~~  O~~    O~O~~   O~~O~              O~~   O~~ O~~ O~~ O~~\nO~~~  O~  O~~   O~~        O~~    O~~  O~~~~           O~~ O~~~O~~     O~~\n                                                               O~~\n                 ");
+    console.log("\uD83D\uDE80 ".concat(_package["default"].name, " v").concat(_package["default"].version, " - by ").concat(_package["default"].author.name));
+    console.log(_package["default"].description);
+    console.log("- - - - - - - - - - - - - - - - - ");
+    console.log("Ready at http://localhost:".concat(port).concat(server.graphqlPath));
   } else {
     console.log("API (".concat(mode, ") ready - port assigned by Heroku: ").concat(port));
   }

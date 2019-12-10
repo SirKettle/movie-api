@@ -31,7 +31,9 @@ var getAffiliateLink = function getAffiliateLink(_ref) {
 
 exports.getAffiliateLink = getAffiliateLink;
 
-var convertItunesUrl = function convertItunesUrl(originalUrl, movie) {
+var convertItunesUrl = function convertItunesUrl() {
+  var originalUrl = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var movie = arguments.length > 1 ? arguments[1] : undefined;
   var trackId = originalUrl.split('?')[0].split('/').pop().replace(/id/, '');
   return getAffiliateLink({
     trackId: trackId,

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.moods = exports.GENRES = exports.MIN_VOTES = exports.SORT_BY = void 0;
+exports.moods = exports.GENRES = exports.tmdbMediaTypes = exports.MEDIA_TYPE = exports.MIN_VOTES = exports.SORT_BY = void 0;
 // default 'sort_by' popularity.desc
 var SORT_BY = {
   MOST_POPULAR: 'popularity.desc',
@@ -19,6 +19,18 @@ var SORT_BY = {
 exports.SORT_BY = SORT_BY;
 var MIN_VOTES = 21;
 exports.MIN_VOTES = MIN_VOTES;
+var MEDIA_TYPE = {
+  MOVIE: 'MOVIE',
+  PERSON: 'PERSON',
+  TV: 'TV'
+};
+exports.MEDIA_TYPE = MEDIA_TYPE;
+var tmdbMediaTypes = {
+  MOVIE: 'movie',
+  PERSON: 'person',
+  TV: 'tv'
+};
+exports.tmdbMediaTypes = tmdbMediaTypes;
 var GENRES = {
   ACTION: 28,
   ADVENTURE: 12,

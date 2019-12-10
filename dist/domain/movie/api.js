@@ -35,15 +35,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 var api = (0, _api.createAxiosApi)('https://api.themoviedb.org/3');
 var ENDPOINTS = {
-  CONFIGURATION: "/configuration",
-  DISCOVER_MOVIES: "/discover/movie",
-  DISCOVER_TV: "/discover/tv",
+  CONFIGURATION: '/configuration',
+  DISCOVER_MOVIES: '/discover/movie',
+  DISCOVER_TV: '/discover/tv',
   MOVIE: function MOVIE(id) {
     return "/movie/".concat(id);
   },
   TV: function TV(id) {
     return "/tv/".concat(id);
-  }
+  },
+  SEARCH: '/search/multi'
 };
 var genreCodesByMoods = R.map(function (key) {
   return _constants.moods[key].genres;
@@ -125,6 +126,13 @@ var apiService = function apiService(_ref2) {
 
         return combineResponsesResults(responses);
       });
+    },
+    getSearchResults: function getSearchResults(query) {
+      return api.get(ENDPOINTS.SEARCH, {
+        params: _objectSpread({}, withBaseParams, {
+          query: query
+        })
+      }).then(R.path(['data', 'results']));
     }
   };
 };
