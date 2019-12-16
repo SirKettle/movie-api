@@ -11,6 +11,7 @@ const ENDPOINTS = {
   DISCOVER_MOVIES: '/discover/movie',
   DISCOVER_TV: '/discover/tv',
   MOVIE: id => `/movie/${id}`,
+  MOVIE_CREDITS: id => `/movie/${id}/credits`,
   TV: id => `/tv/${id}`,
   SEARCH: '/search/multi',
 };
@@ -35,6 +36,8 @@ const logResults = res => {
   return res;
 };
 
+const sd = {};
+
 const combineResponsesResults = R.compose(
   logResults,
   R.uniq,
@@ -51,7 +54,11 @@ export const apiService = ({ tmdbApiKey }) => {
   const withBaseParams = { api_key: tmdbApiKey, language: 'en-US' };
 
   return {
+    config: () => api.get(ENDPOINTS.CONFIGURATION, { params: { ...withBaseParams } }).then(R.prop('data')),
+
     getMovie: id => api.get(ENDPOINTS.MOVIE(id), { params: { ...withBaseParams } }).then(R.prop('data')),
+
+    getMovieCredits: id => api.get(ENDPOINTS.MOVIE_CREDITS(id), { params: { ...withBaseParams } }).then(R.prop('data')),
 
     getMovies: ({ moods = [], genres = [], ...rest }) => {
       const genreQueries = getGenreQueries(moods, genres);

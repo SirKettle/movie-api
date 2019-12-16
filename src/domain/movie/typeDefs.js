@@ -40,6 +40,8 @@ export const types = `
     backgroundImage: String
     itunesUrl: String,
     streamingServices: [StreamingService]
+    cast: [Person!]
+    crew: [Person!]
   }
 
   type TV implements Media {
@@ -59,11 +61,31 @@ export const types = `
     mediaType: MediaType!
     name: String!
     posterImage: String
+    character: String
+    jobs: [String!]
+  }
+  
+  type ImageConfig {
+    baseUrl: String!
+    secureBaseUrl: String!
+    backdropSizes: [String!]!
+    logoSizes: [String!]!
+    posterSizes: [String!]!
+    profileSizes: [String!]!
+    stillSizes: [String!]!
+  }
+  
+  type Config {
+    changeKeys: [String]!
+    image: ImageConfig!
   }
   
 `;
 
 export const queries = `
+
+  config: Config
+
   movies(
     sortBy: String
     personId: Int

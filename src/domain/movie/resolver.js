@@ -11,6 +11,19 @@ const getRequestedFields = info => Object.keys(graphqlFields(info));
 
 const includesRequestedField = (field, info) => getRequestedFields(info).includes(field);
 
+const mapConfig = data => ({
+  changeKeys: data.change_keys,
+  image: {
+    baseUrl: data.images.base_url,
+    secureBaseUrl: data.images.secure_base_url,
+    backdropSizes: data.images.backdrop_sizes,
+    logoSizes: data.images.logo_sizes,
+    posterSizes: data.images.poster_sizes,
+    profileSizes: data.images.profile_sizes,
+    stillSizes: data.images.still_sizes,
+  },
+});
+
 const mapMovieResult = result => ({
   id: result.id,
   mediaType: MEDIA_TYPE.MOVIE,
@@ -40,7 +53,27 @@ const mapPersonResult = result => ({
   mediaType: MEDIA_TYPE.PERSON,
   name: result.name,
   posterImage: result.profile_path,
+  character: result.character || null,
+  jobs: result.job ? [result.job] : [],
 });
+
+const movieCrew = crew =>
+  crew.reduce((acc, member) => {
+    const person = mapPersonResult(member);
+    const match = acc.find(p => p.id === person.id);
+    if (match) {
+      return acc.map(p => {
+        if (p.id === person.id) {
+          return {
+            ...p,
+            jobs: [...p.jobs, ...person.jobs],
+          };
+        }
+        return p;
+      });
+    }
+    return [...acc, person];
+  }, []);
 
 const normaliseResult = result => {
   switch (result.media_type) {
@@ -74,35 +107,62 @@ export const fields = {
 };
 
 export const queries = {
+  config: (_, params = {}, context, _info) => {
+    return apiService(context)
+      .config()
+      .then(mapConfig);
+  },
+
   movies: (_, params = {}, context, _info) => {
     return apiService(context)
       .getMovies(params)
       .then(map(mapMovieResult));
   },
 
-  movie: (_, { id }, context, info) =>
-    apiService(context)
-      .getMovie(id)
-      .then(result => {
-        const movie = mapMovieResult(result);
-        if (includesRequestedField('streamingServices', info)) {
-          return utellyApiService(context)
-            .getStreamingAvailability(movie.name)
-            .then(results => ({
-              ...movie,
-              streamingServices: getStreamingServices(results, { movie, ...context }),
-            }));
-        }
-        if (includesRequestedField('itunesUrl', info)) {
-          return iTunesApiService()
-            .getMovieResults(movie.name)
-            .then(itunesResults => ({
-              ...movie,
-              itunesUrl: getBestMovieMatchAffiliateLink(itunesResults, movie) || null,
-            }));
-        }
-        return movie;
-      }),
+  movie: (_, { id }, context, info) => {
+    const promises = [
+      apiService(context)
+        .getMovie(id)
+        .then(result => {
+          const movie = mapMovieResult(result);
+          if (includesRequestedField('streamingServices', info)) {
+            return utellyApiService(context)
+              .getStreamingAvailability(movie.name)
+              .then(results => ({
+                ...movie,
+                streamingServices: getStreamingServices(results, { movie, ...context }),
+              }));
+          }
+          if (includesRequestedField('itunesUrl', info)) {
+            return iTunesApiService()
+              .getMovieResults(movie.name)
+              .then(itunesResults => ({
+                ...movie,
+                itunesUrl: getBestMovieMatchAffiliateLink(itunesResults, movie) || null,
+              }));
+          }
+          return movie;
+        }),
+    ];
+
+    if (includesRequestedField('cast', info) || includesRequestedField('crew', info)) {
+      promises.push(
+        apiService(context)
+          .getMovieCredits(id)
+          .then(({ cast, crew }) => {
+            return {
+              cast: map(mapPersonResult)(cast),
+              crew: movieCrew(crew),
+            };
+          }),
+      );
+    }
+
+    return Promise.all(promises).then(([movie, credits]) => ({
+      ...movie,
+      ...credits,
+    }));
+  },
 
   search: (_, { query }, context, _info) => {
     return apiService(context)
